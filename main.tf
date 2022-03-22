@@ -9,13 +9,14 @@ terraform {
 
 variable "gcp_region" {
   type        = string
-  description = "Region to use for GCP provider"
+  description = "Region used for hadoop migration"
   default     = "us-central1"
 }
 
 variable "gcp_project" {
   type        = string
   description = "Project to use for this config"
+  default = "gcp-project-2022-24401"
 }
 
 provider "google" {
