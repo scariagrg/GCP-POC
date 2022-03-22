@@ -27,6 +27,40 @@ then
 else
     echo "Failed to enable billing for project $PROJECT_ID with billing account ${BILLING_ACCOUNT}"
 fi
+
+gcloud services enable dataproc.googleapis.com
+rc=$?
+
+echo "--------------------------------------------------------------"
+if [ $rc -eq 0 ]
+then
+    echo "Successfully enables dataproc API"
+else
+    echo "Failed to enable dataproc API"
+fi
+
+#gcloud dataproc clusters create cluster-29ae \
+#--region us-central1 \
+#--subnet default \
+#--zone us-central1-a \
+#--master-machine-type n1-standard-2 \
+#--master-boot-disk-size 500 \
+#--num-workers 2 \
+#--worker-machine-type n1-standard-2 \
+#--worker-boot-disk-size 500 \
+#--image-version 2.0-debian10 \
+#--project gcp-project-2022-24401
+#
+#rc=$?
+#
+#echo "--------------------------------------------------------------"
+#if [ $rc -eq 0 ]
+#then
+#    echo "Successfully created dataproc cluster"
+#else
+#    echo "Failed to create dataproc cluster"
+#fi
+
 echo "--------------------------------------------------------------"
 echo "End - Configuring new project"
 echo "--------------------------------------------------------------"
