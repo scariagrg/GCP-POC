@@ -16,7 +16,6 @@ variable "gcp_region" {
 variable "gcp_project" {
   type        = string
   description = "Project to use for this config"
-  default = "gcp-project-2022-24401"
 }
 
 provider "google" {
@@ -31,10 +30,11 @@ resource "google_service_account" "service_account" {
 
 data "google_iam_policy" "admin" {
   binding {
-    role = "roles/iam.serviceAccountOwner"
+    role = "roles/iam.serviceAccountAdmin"
 
     members = [
       "user:projectgcp2022@gmail.com",
+      "serviceAccount:${google_service_account.service_account.email}"
     ]
   }
 }
