@@ -28,13 +28,31 @@ resource "google_service_account" "service_account" {
   display_name = "Hadoop Migration Service Account"
 }
 
+data "google_iam_policy" "owner" {
+  binding {
+    role = "roles/iam.owner"
+
+    members = [
+      "serviceAccount:${google_service_account.service_account.email}"
+    ]
+  }
+}
+
+resource "google_service_account_iam_policy" "admin-account-iam" {
+  service_account_id = google_service_account.service_account.name
+  policy_data        = data.google_iam_policy.owner.policy_data
+}
+
 data "google_iam_policy" "admin" {
   binding {
     role = "roles/iam.serviceAccountAdmin"
 
     members = [
       "user:projectgcp2022@gmail.com",
-      "serviceAccount:${google_service_account.service_account.email}"
+      "user:leocyriac@gmail.com",
+      "user:lintocyriac@gmail.com",
+      "user:scaria.grg@gmail.com",
+      "user:timcj029@gmail.com"
     ]
   }
 }
