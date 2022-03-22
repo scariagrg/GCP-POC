@@ -30,7 +30,7 @@ resource "google_service_account" "service_account" {
 
 data "google_iam_policy" "owner" {
   binding {
-    role = "roles/iam.owner"
+    role = "roles/iam.serviceAccountAdmin"
 
     members = [
       "serviceAccount:${google_service_account.service_account.email}"
@@ -60,4 +60,9 @@ data "google_iam_policy" "admin" {
 resource "google_service_account_iam_policy" "admin-account-iam" {
   service_account_id = google_service_account.service_account.name
   policy_data        = data.google_iam_policy.admin.policy_data
+}
+
+resource "google_dataproc_cluster" "dp-cluster" {
+  name   = "custer123"
+  region = var.gcp_region
 }
