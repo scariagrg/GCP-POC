@@ -1,0 +1,22 @@
+
+###
+export PROJECT_ID=gcp-project-2022
+gcloud config set project $PROJECT
+
+
+export REGION=us-central1
+export BUCKET_NAME=gs://gcp-project-2022
+
+
+export TEMPLATE_ID=gcp_prj_2022_demo_4_dataproc
+export MY_CLUSTER=cluster-c654
+
+export STEP_ID=demo_pysparkjob
+
+gcloud dataproc workflow-templates create $PROJECT_ID --region=$REGION
+
+gcloud dataproc workflow-templates set-cluster-selector $PROJECT_ID --region=$REGION --cluster-labels=goog-dataproc-cluster-name=$MY_CLUSTER
+
+gcloud dataproc workflow-templates add-job pyspark $BUCKET_NAME/code/load_data.py --step-id $STEP_ID --workflow-template $TEMPLATE_ID --region $REGION --jars gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
+
+
