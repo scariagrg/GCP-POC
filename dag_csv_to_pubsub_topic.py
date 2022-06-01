@@ -55,7 +55,7 @@ with models.DAG(
         template="gs://dataflow-templates/latest/Stream_GCS_Text_to_Cloud_PubSub",
         # Use the link above to specify the correct parameters for your template.
         parameters={
-            "inputFilePattern": project_id + ":leo_private_equity.raw_priv_equi",
+            "inputFilePattern": bucket_path + "/*csv",
             "outputTopic": "projects/" + project_id + "/topics/priv-equity",
         },
     )
